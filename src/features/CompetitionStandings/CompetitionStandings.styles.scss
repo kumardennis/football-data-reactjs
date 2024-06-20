@@ -1,0 +1,60 @@
+@mixin table-cell-style() {
+  width: 92px !important;
+  text-align: center;
+}
+
+.competition-standings {
+  h2 {
+    font-weight: 500 !important;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 5.5px 0.1px rgba(211, 211, 211, 0.432);
+
+    thead {
+      background-color: #f1f5f9;
+
+      tr {
+        th {
+          padding: 1rem 0.5rem !important;
+          margin: 0 !important;
+        }
+
+        th:not(th:nth-of-type(2)) {
+          @include table-cell-style();
+        }
+
+        th:nth-of-type(2) {
+          text-align: left;
+        }
+      }
+    }
+
+    tbody > tr {
+      border-bottom: 0.5px solid lightgray;
+
+      &:nth-of-type(1) {
+        background-color: #c8f5d9;
+      }
+
+      &:nth-of-type(2) {
+        background-color: #dbf8e6;
+      }
+
+      &:nth-of-type(3) {
+        background-color: #edfcf2;
+      }
+
+      td {
+        padding: 1rem 0.5rem !important;
+        margin: 0 !important;
+      }
+
+      td:not(td:nth-of-type(2)) {
+        @include table-cell-style();
+      }
+    }
+  }
+}
