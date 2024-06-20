@@ -3,7 +3,10 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { createColumnsForStandingsTable } from "./utils/standingsTable.utils";
+import {
+  createColumnsForStandingsTable,
+  getStandings,
+} from "./utils/standingsTable.utils";
 import { useGetURLSearchParams } from "src/shared/hooks/useGetURLSearchParams";
 import { useQuery } from "@tanstack/react-query";
 import { CompetitionID, Seasons } from "src/shared/types/competition.types";
@@ -55,27 +58,13 @@ const columns = createColumnsForStandingsTable();
 export const StandingsTable: React.FC = () => {
   const { competitionId, season } = useGetURLSearchParams();
 
-  const getStandings = async ({
-    competitionId,
-    season,
-  }: {
-    competitionId: CompetitionID;
-    season: Seasons;
-  }) => {
-    const service = new StandingsService(competitionId, season);
-
-    const result = (await service.fetchStandings()).normalizeData().getResult();
-
-    return result;
-  };
-
   const { isError, isLoading } = useQuery({
     queryKey: ["standings", { competitionId, season }],
     queryFn: () => getStandings({ competitionId, season }),
     staleTime: 50 * MIN,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    refetchInterval: 5000 * MIN,
+    refetchInterval: 50 * MIN,
   });
 
   const table = useReactTable({

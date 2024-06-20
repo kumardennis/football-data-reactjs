@@ -5,6 +5,7 @@ import { useGetURLSearchParams } from "src/shared/hooks/useGetURLSearchParams";
 import { useCallback } from "react";
 import { MIN } from "src/shared/constants";
 import { CompletedMatchesService } from "./services/CompletedMatchesService";
+import { getCompletedMatches } from "./utils/completedMatches.utils";
 
 const COLUMNS = [
   {
@@ -21,31 +22,14 @@ const COLUMNS = [
 export const CompletedMatchesTable: React.FC = () => {
   const { competitionId, season } = useGetURLSearchParams();
 
-  const getCompletedMatches = useCallback(
-    async ({
-      competitionId,
-      season,
-    }: {
-      competitionId: CompetitionID;
-      season: Seasons;
-    }) => {
-      const service = new CompletedMatchesService(competitionId, season);
-      const result = (await service.fetchCompletedMatches())
-        .normalizeData()
-        .getResult();
-      return result;
-    },
-    []
-  );
-
   const { data, isError, isLoading } = useQuery({
     enabled: !!competitionId && !!season,
     queryKey: ["completedMatches", competitionId, season],
     queryFn: () => getCompletedMatches({ competitionId, season }),
-    staleTime: 5000 * MIN,
+    staleTime: 50 * MIN,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    refetchInterval: 5000 * MIN,
+    refetchInterval: 50 * MIN,
   });
 
   const createTableHeader = () => (
