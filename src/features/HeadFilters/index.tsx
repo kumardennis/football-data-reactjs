@@ -19,7 +19,6 @@ export const HeadFilter = () => {
   };
 
   const updateCompetitionRef = (event: ChangeEvent<HTMLSelectElement>) => {
-    console.log(event.target.value);
     competitionIdRef.current = event.target.value as CompetitionID;
   };
 
