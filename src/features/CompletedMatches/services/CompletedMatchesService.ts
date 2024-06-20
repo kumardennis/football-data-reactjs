@@ -7,7 +7,7 @@ export class CompletedMatchesService {
   private competitionId: CompetitionID;
   private season: Seasons;
   private response: any;
-  private normalizedData: any;
+  private normalizedData: CompletedMatchesTableDataType[] = [];
 
   constructor(competitionId: CompetitionID, season: Seasons) {
     this.competitionId = competitionId;
