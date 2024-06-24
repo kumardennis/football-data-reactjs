@@ -9,8 +9,6 @@ import {
 } from "./utils/standingsTable.utils";
 import { useGetURLSearchParams } from "src/shared/hooks/useGetURLSearchParams";
 import { useQuery } from "@tanstack/react-query";
-import { CompetitionID, Seasons } from "src/shared/types/competition.types";
-import { StandingsService } from "src/features/CompetitionStandings/services/StandingsService";
 import "./CompetitionStandings.styles.scss";
 import { MIN } from "src/shared/constants";
 
