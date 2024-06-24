@@ -1,5 +1,7 @@
 import { createColumnHelper, AccessorFnColumnDef } from "@tanstack/react-table";
 import { StandingsTableDataType } from "../types/standingTables.types";
+import { CompetitionID, Seasons } from "src/shared/types/competition.types";
+import { StandingsService } from "../services/StandingsService";
 
 const columnHelper = createColumnHelper<StandingsTableDataType>();
 
@@ -46,4 +48,18 @@ export const createColumnsForStandingsTable = (): AccessorFnColumnDef<
   ];
 
   return columns;
+};
+
+export const getStandings = async ({
+  competitionId,
+  season,
+}: {
+  competitionId: CompetitionID;
+  season: Seasons;
+}) => {
+  const service = new StandingsService(competitionId, season);
+
+  const result = (await service.fetchStandings()).normalizeData().getResult();
+
+  return result;
 };
