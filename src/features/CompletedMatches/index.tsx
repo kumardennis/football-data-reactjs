@@ -1,11 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { CompetitionID, Seasons } from "src/shared/types/competition.types";
 import "./CompletedMatches.styles.scss";
 import { useGetURLSearchParams } from "src/shared/hooks/useGetURLSearchParams";
-import { useCallback } from "react";
 import { MIN } from "src/shared/constants";
-import { CompletedMatchesService } from "./services/CompletedMatchesService";
-import { getCompletedMatches } from "./utils/completedMatches.utils";
+import { useGetCompletedMatches } from "./lib/completedMatches.hooks";
 
 const COLUMNS = [
   {
@@ -21,6 +18,8 @@ const COLUMNS = [
 
 export const CompletedMatchesTable: React.FC = () => {
   const { competitionId, season } = useGetURLSearchParams();
+
+  const getCompletedMatches = useGetCompletedMatches();
 
   const { data, isError, isLoading } = useQuery({
     enabled: !!competitionId && !!season,
